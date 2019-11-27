@@ -11,7 +11,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
 
         private const string C3_NET_SERVICE_LOCATION_REGISTRY = @"SYSTEM\CurrentControlSet\Services\C3Net";
         
-        private const string C3NET_PROCESS_NAME = "c3_rpm_net";
+        private const string C3NET_PROCESS_NAME = "c3driver_net";
 
         private string c3netApplicationLocation;
 
@@ -46,7 +46,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
         }
 
         /// <summary>
-        /// Method that will check if multiple c3_rpm_net.exe are opened
+        /// Method that will check if multiple c3driver_net.exe are opened
         /// </summary>
         /// <param name="serviceName"></param>
         /// <returns></returns>

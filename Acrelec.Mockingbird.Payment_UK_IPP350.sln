@@ -8,6 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Loader", "Loader", "{21ABE3A1-C00C-4593-BA91-8831828E2D33}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Driver", "Driver", "{61F73ED8-DF1C-459F-8751-3730250F60B5}"
+	ProjectSection(SolutionItems) = preProject
+		Driver\Pay_UK_IPP350\acrelec_icon.ico = Driver\Pay_UK_IPP350\acrelec_icon.ico
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PAY_UK_IPP350", "Driver\Pay_UK_IPP350\PAY_UK_IPP350.csproj", "{72F7355B-515F-4FFD-B216-B7EE334B2A53}"
 EndProject

@@ -543,7 +543,7 @@ namespace PAY_UK_IPP350.Model
                     {
                         //Char 512
                         Padding = message.Substring(currentIndex, 512);
-                        currentIndex += 55;
+                        currentIndex += 512;
                     }
                     //The "ExtensionType", "ExtensionLength", "Extension" fields exist only if the "ExtendedFields" is equal to "1"
                     else if (ExtendedFields == "1")
@@ -566,7 +566,7 @@ namespace PAY_UK_IPP350.Model
                     currentIndex += 4;
 
                     //Customer receipt data. "CustData" is present only if the only if "CustLen" is greater than zero 
-                    if (CustLen != "0000" && !string.IsNullOrEmpty(CustLen.Trim()))
+                    if (CustLen != "0000" && !string.IsNullOrEmpty(CustLen.Trim().Trim('\0')))
                     {
                         int custLen = int.Parse(CustLen);
 
@@ -579,7 +579,7 @@ namespace PAY_UK_IPP350.Model
                     currentIndex += 4;
 
                     //Merchant receipt data. "CustData" is present only if the only if "CustLen" is greater than zero 
-                    if (MerchLen != "0000" && !string.IsNullOrEmpty(MerchLen.Trim()))
+                    if (MerchLen != "0000" && !string.IsNullOrEmpty(MerchLen.Trim().Trim('\0')))
                     {
                         int merchLen = int.Parse(MerchLen);
 

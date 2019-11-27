@@ -142,7 +142,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
 
         AdminPeripheralSetting first_server;
 
-        AdminPeripheralSetting second_server;
+        //AdminPeripheralSetting second_server;
 
         AdminPeripheralSetting messageLineOne;
 
@@ -214,14 +214,14 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
 
             //Init the Axis 2
 
-            second_server = new AdminPeripheralSetting();
-            second_server.ControlName = "Communication Server 2";
-            second_server.RealName = "AXIS_COM2";
-            second_server.SettingFileName = C3NET_CONFIG;
-            second_server.ControlDescription = "Ingenico secondary communication Server. Example: 111.121.131.141 1234.";
-            second_server.CurrentValue = "0.0.0.0 0000";
-            second_server.SetttingSection = "";
-            second_server.ControlType = SettingDataType.String;
+           //second_server = new AdminPeripheralSetting();
+           //second_server.ControlName = "Communication Server 2";
+           //second_server.RealName = "AXIS_COM2";
+           //second_server.SettingFileName = C3NET_CONFIG;
+           //second_server.ControlDescription = "Ingenico secondary communication Server. Example: 111.121.131.141 1234.";
+           //second_server.CurrentValue = "0.0.0.0 0000";
+           //second_server.SetttingSection = "";
+           //second_server.ControlType = SettingDataType.String;
 
             /// Idle Message line one
             messageLineOne = new AdminPeripheralSetting();
@@ -246,7 +246,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
             cardApplications.ControlName = "ACTIVE APPLICATIONS";
             cardApplications.RealName = "CARTES";
             cardApplications.SettingFileName = C3NET_CONFIG;
-            cardApplications.CurrentValue = "ADM CLS";
+            cardApplications.CurrentValue = "ADM CPA";
             cardApplications.SetttingSection = "";
             cardApplications.ControlDescription = "Applications that will be active after the initialization of the terminal. Example: ADM EMV SSC";
             cardApplications.ControlType = SettingDataType.String;
@@ -317,15 +317,15 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
                                 }
                                 first_server = paymentSetting;
                                 break;
-                            case "AXIS_COM2":
-                                //Update the c3config filed
-                                if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
-                                {
-                                    logger.Info(PAYMENT_LOG, $"Failed to update c3config setting : {paymentSetting.ControlName}. {exceptionMessage}");
-                                    return false;
-                                }
-                                second_server = paymentSetting;
-                                break;
+                            //case "AXIS_COM2":
+                            //    //Update the c3config filed
+                            //    if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
+                            //    {
+                            //        logger.Info(PAYMENT_LOG, $"Failed to update c3config setting : {paymentSetting.ControlName}. {exceptionMessage}");
+                            //        return false;
+                            //    }
+                            //    second_server = paymentSetting;
+                            //    break;
                             case "REPOS_1":
                                 //Update the c3config filed
                                 if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
@@ -547,10 +547,10 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
                 //Check if the c3_rmp_net is started or if multiple instances of it are started.
                 if (!c3NetManager.IsC3NetStarted() || c3NetManager.AreMultipleC3NetInstancesStarted())
                 {
-                    logger.Info(PAYMENT_LOG, "   c3_rpm_net.exe is closed or has multiple instances opened.");
+                    logger.Info(PAYMENT_LOG, "   c3driver_net.exe is closed or has multiple instances opened.");
                     if (!StartC3Net())
                     {
-                        logger.Info(PAYMENT_LOG, "   c3_rpm_net.exe restart failed.");
+                        logger.Info(PAYMENT_LOG, "   c3driver_net.exe restart failed.");
                         paymentStatus.CurrentStatus = PeripheralStatus.PeripheralGenericError().Status;
                         paymentStatus.ErrorCodesDescription = PeripheralStatus.PeripheralGenericError().Description;
                         return false;
@@ -646,7 +646,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
             currentPaymentInitConfig.ConfigurationSettings.Add(terminalID);
             currentPaymentInitConfig.ConfigurationSettings.Add(currency);
             currentPaymentInitConfig.ConfigurationSettings.Add(first_server);
-            currentPaymentInitConfig.ConfigurationSettings.Add(second_server);
+           // currentPaymentInitConfig.ConfigurationSettings.Add(second_server);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineOne);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineTwo);
             currentPaymentInitConfig.ConfigurationSettings.Add(cardApplications);
@@ -861,21 +861,21 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
 
         private bool StartC3Net()
         {
-            //Check if the c3_rpm_net.exe is started and if it is restart it
+            //Check if the c3driver_net.exe is started and if it is restart it
             if (c3NetManager.IsC3NetStarted())
             {
-                logger.Info(PAYMENT_LOG, "  c3_rpm_net.exe is already installed.");
+                logger.Info(PAYMENT_LOG, "  c3driver_net.exe is already installed.");
 
                 //Try to stop the process
                 if (!c3NetManager.StopC3Net())
-                    logger.Info(PAYMENT_LOG, "  failed to stop c3_rpm_net.exe.");
+                    logger.Info(PAYMENT_LOG, "  failed to stop c3driver_net.exe.");
                 else
-                    logger.Info(PAYMENT_LOG, "  successfully stopped c3_rpm_net.exe.");
+                    logger.Info(PAYMENT_LOG, "  successfully stopped c3driver_net.exe.");
 
                 //check again if the process is stopped
                 if (c3NetManager.IsC3NetStarted())
                 {
-                    logger.Info(PAYMENT_LOG, "  c3_rpm_net.exe is still opened.");
+                    logger.Info(PAYMENT_LOG, "  c3driver_net.exe is still opened.");
                     return false;
                 }
 
@@ -888,7 +888,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
                 //check again if the process was started
                 if (!c3NetManager.IsC3NetStarted())
                 {
-                    logger.Info(PAYMENT_LOG, "  c3_rpm_net.exe failed to start.");
+                    logger.Info(PAYMENT_LOG, "  c3driver_net.exe failed to start.");
                     return false;
                 }
                 return true;
@@ -904,7 +904,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
                 //check again if the process was started
                 if (!c3NetManager.IsC3NetStarted())
                 {
-                    logger.Info(PAYMENT_LOG, "  c3_rpm_net.exe failed to start.");
+                    logger.Info(PAYMENT_LOG, "  c3driver_net.exe failed to start.");
                     return false;
                 }
                 return true;

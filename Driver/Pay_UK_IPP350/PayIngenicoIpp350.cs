@@ -122,7 +122,7 @@ namespace PAY_UK_IPP350
 
         /// <summary>
         /// Method that is called when the Core requests the EFT initialization.
-        /// This method will make an initialization request to the c3_rpm_net.exe.
+        /// This method will make an initialization request to the c3driver_net.exe.
         /// Response will be provided back to the Core based on the EFT initialization response.
         /// </summary>
         public void Init(object parameters)
@@ -176,6 +176,7 @@ namespace PAY_UK_IPP350
 
                 //Send the eft begin init request
                 string requestString = eftBeginRequestMessage.GetPinpadInitializationMessage(TerminalID);
+
                 if (!c3NetCommunicator.Send(requestString))
                 {
                     coreCommunicator.SendMessage(CommunicatorMethods.Init, new { Status = -334, Description = "failed to send Initialization request" });
@@ -206,6 +207,7 @@ namespace PAY_UK_IPP350
                     return;
                 }
                 Log.Info(PAY_INGENICO_IPP350_LOG, "        received EFT End Confirmation.");
+
 
                 if (eftEndResponse.Error == 0)
                 {
@@ -242,7 +244,7 @@ namespace PAY_UK_IPP350
 
         /// <summary>
         /// Method that is called when the Core requests a payment .
-        /// This method will make a transaction request to the c3_rpm_net.exe.
+        /// This method will make a transaction request to the c3driver_net.exe.
         /// Response will be provided back to the Core based on the EFT initialization response.
         /// </summary>
         public void Pay(object parameters)

@@ -196,7 +196,7 @@ namespace PAY_UK_IPP350.C3NetCommunicator
                         messageBufer.Append(Encoding.ASCII.GetString(receivedSocketPacket.buffer, 0, bytesRead));
                     }
 
-                    //Process the message buffer to extract all the received messages
+                    //Process the message buffer tois  extract all the received messages
                     ProcessMessageBuffer();
 
                     StartReceivingPackets();                    
