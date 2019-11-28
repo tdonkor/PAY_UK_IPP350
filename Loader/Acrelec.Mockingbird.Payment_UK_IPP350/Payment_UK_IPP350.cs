@@ -142,7 +142,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
 
         AdminPeripheralSetting first_server;
 
-        //AdminPeripheralSetting second_server;
+        AdminPeripheralSetting second_server;
 
         AdminPeripheralSetting messageLineOne;
 
@@ -214,14 +214,14 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
 
             //Init the Axis 2
 
-           //second_server = new AdminPeripheralSetting();
-           //second_server.ControlName = "Communication Server 2";
-           //second_server.RealName = "AXIS_COM2";
-           //second_server.SettingFileName = C3NET_CONFIG;
-           //second_server.ControlDescription = "Ingenico secondary communication Server. Example: 111.121.131.141 1234.";
-           //second_server.CurrentValue = "0.0.0.0 0000";
-           //second_server.SetttingSection = "";
-           //second_server.ControlType = SettingDataType.String;
+            second_server = new AdminPeripheralSetting();
+            second_server.ControlName = "Communication Server 2";
+            second_server.RealName = "AXIS_COM2";
+            second_server.SettingFileName = C3NET_CONFIG;
+            second_server.ControlDescription = "Ingenico secondary communication Server. Example: 111.121.131.141 1234.";
+            second_server.CurrentValue = "0.0.0.0 0000";
+            second_server.SetttingSection = "";
+            second_server.ControlType = SettingDataType.String;
 
             /// Idle Message line one
             messageLineOne = new AdminPeripheralSetting();
@@ -317,15 +317,15 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
                                 }
                                 first_server = paymentSetting;
                                 break;
-                            //case "AXIS_COM2":
-                            //    //Update the c3config filed
-                            //    if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
-                            //    {
-                            //        logger.Info(PAYMENT_LOG, $"Failed to update c3config setting : {paymentSetting.ControlName}. {exceptionMessage}");
-                            //        return false;
-                            //    }
-                            //    second_server = paymentSetting;
-                            //    break;
+                            case "AXIS_COM2":
+                                //Update the c3config filed
+                                if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
+                                {
+                                    logger.Info(PAYMENT_LOG, $"Failed to update c3config setting : {paymentSetting.ControlName}. {exceptionMessage}");
+                                    return false;
+                                }
+                                second_server = paymentSetting;
+                                break;
                             case "REPOS_1":
                                 //Update the c3config filed
                                 if (!SetPaymentConfigSettings(paymentSetting, ref exceptionMessage))
@@ -646,7 +646,7 @@ namespace Acrelec.Mockingbird.Payment_UK_IPP350
             currentPaymentInitConfig.ConfigurationSettings.Add(terminalID);
             currentPaymentInitConfig.ConfigurationSettings.Add(currency);
             currentPaymentInitConfig.ConfigurationSettings.Add(first_server);
-           // currentPaymentInitConfig.ConfigurationSettings.Add(second_server);
+            currentPaymentInitConfig.ConfigurationSettings.Add(second_server);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineOne);
             currentPaymentInitConfig.ConfigurationSettings.Add(messageLineTwo);
             currentPaymentInitConfig.ConfigurationSettings.Add(cardApplications);
