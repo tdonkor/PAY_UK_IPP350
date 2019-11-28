@@ -1,4 +1,10 @@
-﻿Version 1.0.0.23 (SIS - 26.06.2018)
+﻿
+Version 1.0.0.24 (SIS - 29.11.2019)
+1. Updated driver executable from C3Net to C3Driver
+2. Updates to EFTEndMessage .Trim('\0'))) added for customer and merchant length string
+3. CurrentIndex value changed from 55 to 512 for ExtendedFields != "1"
+
+Version 1.0.0.23 (SIS - 26.06.2018)
 -----------------------------
 1. Fixed a bug that appeared in the previous version. 'VISA_RRP_DATA' failed to update.
    Update the c3config 'VISA_RRP_DATA' setting with it's appropriate value whenever UpdateSettings command is executed.
